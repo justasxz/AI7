@@ -99,10 +99,14 @@ df = pd.DataFrame(data)
 
 # joined_df = pd.concat([df, df], ignore_index=True, axis=1)  # sujungia du DataFrame'us
 # print(joined_df)
-df2 = pd.DataFrame({
-    'vardas': ['Jonas', 'Petras', 'Ona', 'Marytė', 'Tomas'],
-    'ugis': [180, 175, 160, 165, 170],
-    'svoris': [75, 70, 60, 65, 80]
-})
-merged_df = pd.merge(df, df2, on='vardas', how='left')  # sujungia du DataFrame'us pagal 'vardas' stulpelį
-print(merged_df)
+# df2 = pd.DataFrame({
+#     'vardas': ['Jonas', 'Petras', 'Ona', 'Marytė', 'Tomas'],
+#     'ugis': [180, 175, 160, 165, 170],
+#     'svoris': [75, 70, 60, 65, 80]
+# })
+# merged_df = pd.merge(df, df2, on='vardas', how='left')  # sujungia du DataFrame'us pagal 'vardas' stulpelį
+# print(merged_df)
+df = pd.read_csv('data/titanic_train.csv')
+
+print(df.head())
+print(df.describe())
