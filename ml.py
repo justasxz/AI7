@@ -7,7 +7,8 @@ df = df.drop(df.select_dtypes(include=['object']).columns, axis=1)
 df.dropna(axis=1, thresh=0.5, inplace=True)
 df.dropna(inplace=True)
 X_train, X_test, y_train, y_test = train_test_split(df.drop('Survived', axis=1),df['Survived'], test_size=0.2, random_state=42)
-from sklearn.preprocessing import StandardScaler
+
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
@@ -25,15 +26,20 @@ X_test = scaler.transform(X_test)
 
 from sklearn.linear_model import LogisticRegression
 
-model = LogisticRegression(max_iter=1000, verbose=2)
+model = LogisticRegression(max_iter=10, verbose=2)
 
-model.fit(X_train, y_train)
+from sklearn.model_selection import cross_val_score
+scores = cross_val_score(model, X_train, y_train, cv=5, scoring='accuracy')
 
-y_pred = model.predict(X_test)
-print("Predictions:", y_pred)
-from sklearn.metrics import accuracy_score
-# import numpy as np
-# y_pred = np.zeros_like(y_pred)  
-accuracy = accuracy_score(y_test, y_pred)
+print(scores.mean())
 
-print("Accuracy:", accuracy)
+# model.fit(X_train, y_train)
+
+# y_pred = model.predict(X_test)
+# print("Predictions:", y_pred)
+# from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+# # import numpy as np
+# # y_pred = np.zeros_like(y_pred)  
+# accuracy = accuracy_score(y_test, y_pred)
+
+# print("Accuracy:", accuracy)
