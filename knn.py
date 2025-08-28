@@ -7,6 +7,7 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 # from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import cross_val_score
 from sklearn.preprocessing import LabelEncoder
+
 df = pd.read_csv('data/titanic_train.csv')
 df.dropna(inplace=True)
 df.drop_duplicates(inplace=True)
