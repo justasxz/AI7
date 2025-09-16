@@ -54,10 +54,26 @@ centers = kmeans.cluster_centers_
 print(centers)
 print(predictions)
 
-# plot the clusters with sns
-# plt.figure(figsize=(10, 6))
-sns.scatterplot(x=data[:, 0], y=data[:, 1], hue=predictions, palette='Set1', s=50, alpha=0.6)
-plt.scatter(centers[:, 0], centers[:, 1], c='black', s=150, marker='X', label='Centroids')
-# plt.title('KMeans Clustering')
-# plt.legend()
-plt.show()
+# combine predictions and data into dataframe
+import pandas as pd
+df = pd.DataFrame(data, columns=['x', 'y'])
+df['cluster'] = predictions
+print(df.head())
+
+# make some assumptions about the clusters
+cluster_summary = df.groupby('cluster').agg({
+    'x': ['mean', 'std'],
+    'y': ['mean', 'std'],
+    'cluster': 'count'
+}).reset_index()
+cluster_summary.columns = ['cluster', 'x_mean', 'x_std', 'y_mean', 'y_std', 'count']
+print(cluster_summary)
+
+
+# # plot the clusters with sns
+# # plt.figure(figsize=(10, 6))
+# sns.scatterplot(x=data[:, 0], y=data[:, 1], hue=predictions, palette='Set1', s=50, alpha=0.6)
+# plt.scatter(centers[:, 0], centers[:, 1], c='black', s=150, marker='X', label='Centroids')
+# # plt.title('KMeans Clustering')
+# # plt.legend()
+# plt.show()
